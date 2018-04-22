@@ -2,7 +2,7 @@ import {ConnectionConfig} from "mysql";
 import * as fs from 'fs';
 import * as path from 'path';
 
-const configFile = JSON.parse(fs.readFileSync(path.resolve('build/config.json')).toString());
+const configFile = JSON.parse(fs.readFileSync(path.resolve('./config.json')).toString());
 
 interface ConfigInterface {
     version: number;

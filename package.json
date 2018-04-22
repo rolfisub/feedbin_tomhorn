@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "node webpack --config webpack.config.js",
-    "start": "yarn build && node build/server.js"
+    "start": "yarn build && cd build && node server.js && cd .."
   },
   "dependencies": {
     "body-parser": "^1.18.2",
