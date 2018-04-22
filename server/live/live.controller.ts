@@ -9,11 +9,11 @@ const liveMapper = new LiveMapper(config.mysql.config);
 const liveModel = new LiveModel(liveMapper);
 
 export const index = (req: Request, res: Response) => {
-  liveModel.saveMsg(req.body as LiveOddsMsgBody);
-  res.json({
-    message: "Welcome to API skeleton",
-    version: config.version,
-    path: path.resolve("../server"),
-    body: req.body
-  });
+    liveModel.saveMsg(req.body as LiveOddsMsgBody);
+    res.json({
+        message: "Welcome to API skeleton",
+        version: config.version,
+        path: path.resolve("../server"),
+        body: req.body
+    });
 };

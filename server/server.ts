@@ -15,6 +15,6 @@ app.use(xmlParser());
 app.post("/live", LiveController.index);
 
 app.listen(app.get("port"), () => {
-  console.log("Server is listening to port:%d", app.get("port"));
-  console.log("Press CTRL-C to stop");
+    console.log("Server is listening to port:%d", app.get("port"));
+    console.log("Press CTRL-C to stop");
 });
