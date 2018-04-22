@@ -10,8 +10,9 @@ fs.readdirSync('node_modules')
 
 module.exports = {
     entry: './server/server.ts',
+    mode: "development",
     output: {
-        path: __dirname + '/dist',
+        path: __dirname + '/build',
         filename: 'server.js',
     },
     resolve: {
@@ -19,9 +20,7 @@ module.exports = {
         extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
     },
     module: {
-        loaders: [
-            // All files with a '.ts' or '.tsx'
-            // extension will be handled by 'ts-loader'
+        rules: [
             {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
