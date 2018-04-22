@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "mysql": {
+    "config": {
+      "host": "localhost",
+      "user": "testuser",
+      "password": "lkS07v25uyjNLYHt",
+      "port": 3306,
+      "database": "test1"
+    }
+  }
+}

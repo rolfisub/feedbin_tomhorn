@@ -1,10 +1,12 @@
 import {LiveOddsMsgBody} from "./types";
-import {ConnectionConfig, MysqlError} from "mysql";
+import {Connection, ConnectionConfig, MysqlError} from "mysql";
+import {createMysqlConnection} from "../services/mysql.connection";
 
 export default class LiveMapper {
+    protected con: Connection;
 
     constructor(mysqlConfig: ConnectionConfig) {
-        console.log("Mysql Config received: ", mysqlConfig);
+        this.con = createMysqlConnection(mysqlConfig);
     }
 
     public saveMsg(body: LiveOddsMsgBody) {

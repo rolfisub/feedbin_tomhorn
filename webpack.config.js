@@ -1,5 +1,6 @@
 var fs = require('fs');
 var nodeModules = {};
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 fs.readdirSync('node_modules')
     .filter(function(x) {
         return ['.bin'].indexOf(x) === -1;
@@ -29,4 +30,12 @@ module.exports = {
     },
     target: 'node',
     externals: nodeModules,
+    plugins: [
+        new CopyWebpackPlugin([
+            {
+                from: 'server/**/*.json',
+                to: '[name].[ext]'
+            }
+        ])
+    ]
 };
