@@ -8,7 +8,8 @@
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "no-console": [false],
-    "interface-name": false
+    "interface-name": false,
+    "comment-format": false
   },
   "jsRules": {
     "object-literal-sort-keys": false

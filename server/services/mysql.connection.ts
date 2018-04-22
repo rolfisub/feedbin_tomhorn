@@ -1,9 +1,10 @@
 import * as mysql from "mysql";
-import { Connection, ConnectionConfig } from "mysql";
+import { ConnectionConfig, Pool } from "mysql";
 
-export const createMysqlConnection = (config: ConnectionConfig): Connection => {
-    const con = mysql.createConnection(config);
-    con.connect(err => {
+export const createMysqlConnectionPool = (config: ConnectionConfig): Pool => {
+    const pool = mysql.createPool(config);
+    //test the connection
+    pool.getConnection(err => {
         if (err) {
             console.log("Cannot connect to MYSQL server");
             console.log("Config:", config);
@@ -12,5 +13,5 @@ export const createMysqlConnection = (config: ConnectionConfig): Connection => {
         }
         console.log("Connected to Mysql.");
     });
-    return con;
+    return pool;
 };

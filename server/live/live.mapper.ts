@@ -1,12 +1,11 @@
 import { LiveOddsMsgBody } from "./types";
-import { Connection, ConnectionConfig, MysqlError } from "mysql";
-import { createMysqlConnection } from "../services/mysql.connection";
+import { MysqlError, Pool } from "mysql";
 
 export default class LiveMapper {
-    protected con: Connection;
+    protected pool: Pool;
 
-    constructor(mysqlConfig: ConnectionConfig) {
-        this.con = createMysqlConnection(mysqlConfig);
+    constructor(pool: Pool) {
+        this.pool = pool;
     }
 
     public saveMsg(body: LiveOddsMsgBody) {

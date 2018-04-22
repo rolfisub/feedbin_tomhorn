@@ -2,6 +2,7 @@
   "version": 1,
   "mysql": {
     "config": {
+      "connectionLimit": 10,
       "host": "localhost",
       "user": "testuser",
       "password": "lkS07v25uyjNLYHt",

@@ -4,8 +4,11 @@ import config from "../config";
 import LiveModel from "./live.model";
 import LiveMapper from "./live.mapper";
 import { LiveOddsMsgBody } from "./types";
+import { createMysqlConnectionPool } from "../services/mysql.connection";
 
-const liveMapper = new LiveMapper(config.mysql.config);
+const liveMapper = new LiveMapper(
+    createMysqlConnectionPool(config.mysql.config)
+);
 const liveModel = new LiveModel(liveMapper);
 
 export const index = (req: Request, res: Response) => {
