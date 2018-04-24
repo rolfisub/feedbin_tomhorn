@@ -1,22 +1,17 @@
 import { Request, Response } from "express";
-import * as path from "path";
-import config from "../config";
-import LiveModel from "./live.model";
-import LiveMapper from "./live.mapper";
+import { AbstractController } from "../common/controller";
+import { LiveModel } from "./live.model";
 import { LiveOddsMsgBody } from "./types";
-import { createMysqlConnectionPool } from "../services/mysql.connection";
 
-const liveMapper = new LiveMapper(
-    createMysqlConnectionPool(config.mysql.config)
-);
-const liveModel = new LiveModel(liveMapper);
-
-export const index = (req: Request, res: Response) => {
-    liveModel.saveMsg(req.body as LiveOddsMsgBody);
-    res.json({
-        message: "Welcome to API skeleton",
-        version: config.version,
-        path: path.resolve("../server"),
-        body: req.body
-    });
-};
+export class LiveController extends AbstractController {
+    constructor(protected model: LiveModel) {
+        super(model);
+    }
+    public create(req: Request, res: Response) {
+        this.model.saveMsg(req.body as LiveOddsMsgBody);
+        res.json({
+            hello: "world",
+            body: req.body
+        });
+    }
+}

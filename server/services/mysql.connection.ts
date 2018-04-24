@@ -4,7 +4,7 @@ import { ConnectionConfig, Pool } from "mysql";
 export const createMysqlConnectionPool = (config: ConnectionConfig): Pool => {
     const pool = mysql.createPool(config);
     //test the connection
-    pool.getConnection(err => {
+    pool.getConnection((err, con) => {
         if (err) {
             console.log("Cannot connect to MYSQL server");
             console.log("Config:", config);
@@ -12,6 +12,8 @@ export const createMysqlConnectionPool = (config: ConnectionConfig): Pool => {
             process.exit(5);
         }
         console.log("Connected to Mysql.");
+        con.release();
     });
+
     return pool;
 };
