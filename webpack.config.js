@@ -1,6 +1,7 @@
 var fs = require('fs');
 var nodeModules = {};
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var UglifyWebpackJSPlugin = require('uglifyjs-webpack-plugin');
 fs.readdirSync('node_modules')
     .filter(function(x) {
         return ['.bin'].indexOf(x) === -1;
@@ -31,6 +32,14 @@ module.exports = {
     target: 'node',
     externals: nodeModules,
     plugins: [
+        new UglifyWebpackJSPlugin({
+            cache: true,
+            extractComments: true,
+            sourceMap: false,
+            uglifyOptions: {
+                mangle: true
+            }
+        }),
         new CopyWebpackPlugin([
             {
                 from: 'server/**/*.json',

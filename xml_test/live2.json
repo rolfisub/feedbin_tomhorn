@@ -1,0 +1,501 @@
+{
+  "liveodds": {
+    "$": {
+      "xmlns:xsd": "http://www.w3.org/2001/XMLSchema",
+      "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+      "status": "change",
+      "timestamp": "1512871163"
+    },
+    "match": [
+      {
+        "$": {
+          "active": "1",
+          "betstatus": "started",
+          "matchid": "199722",
+          "msgnr": "12",
+          "cornersaway": "0",
+          "cornershome": "0",
+          "redcardsaway": "0",
+          "redcardshome": "0",
+          "yellowcardsaway": "0",
+          "yellowcardshome": "0",
+          "yellowredcardssaway": "0",
+          "yellowredcardshome": "0",
+          "score": "0:0",
+          "setscore1": "0:0",
+          "setscore2": "0:0",
+          "status": "1p",
+          "matchtime": "1",
+          "matchtime_extended": "00:54"
+        },
+        "matchinfo": [
+          {
+            "dateofmatch": [
+              "1512903600"
+            ],
+            "sport": [
+              {
+                "_": "Soccer",
+                "$": {
+                  "id": "1"
+                }
+              }
+            ],
+            "category": [
+              {
+                "_": "England",
+                "$": {
+                  "id": "68"
+                }
+              }
+            ],
+            "tournament": [
+              {
+                "_": "Premier League/2017/2018",
+                "$": {
+                  "id": "1"
+                }
+              }
+            ],
+            "hometeam": [
+              {
+                "_": "Southampton",
+                "$": {
+                  "id": "4869",
+                  "uniqueid": "45"
+                }
+              }
+            ],
+            "awayteam": [
+              {
+                "_": "Arsenal",
+                "$": {
+                  "id": "4871",
+                  "uniqueid": "42"
+                }
+              }
+            ]
+          }
+        ],
+        "score": [
+          {
+            "$": {
+              "home": "1",
+              "away": "0",
+              "id": "3149201",
+              "player": "S. Johansen",
+              "scoringteam": "home",
+              "time": "55",
+              "type": "live",
+              "playerid": "115622"
+            }
+          }
+        ],
+        "card": [
+          {
+            "$": {
+              "canceled": "false",
+              "id": "3149201",
+              "player": "S. Johansen",
+              "team": "home",
+              "time": "58",
+              "type": "yellow",
+              "playerid": "115622"
+            }
+          }
+        ],
+        "odds": [
+          {
+            "$": {
+              "active": "1",
+              "changed": "true",
+              "combination": "0",
+              "freetext": "Fulltime Result",
+              "id": "31492001",
+              "specialoddsvalue": "",
+              "type": "3w",
+              "typeid": "2",
+              "mostbalanced": "1"
+            },
+            "oddsfield": [
+              {
+                "_": "3.75",
+                "$": {
+                  "active": "1",
+                  "type": "1",
+                  "typeid": "1"
+                }
+              },
+              {
+                "_": "3.45",
+                "$": {
+                  "active": "1",
+                  "type": "x",
+                  "typeid": "2"
+                }
+              },
+              {
+                "_": "1.95",
+                "$": {
+                  "active": "1",
+                  "type": "2",
+                  "typeid": "3"
+                }
+              }
+            ]
+          },
+          {
+            "$": {
+              "active": "1",
+              "changed": "true",
+              "combination": "0",
+              "freetext": "Next Goal",
+              "id": "31492003",
+              "specialoddsvalue": "0:0",
+              "subtype": "13",
+              "type": "ft3w",
+              "typeid": "6",
+              "mostbalanced": "1"
+            },
+            "oddsfield": [
+              {
+                "_": "2.35",
+                "$": {
+                  "active": "1",
+                  "type": "1",
+                  "typeid": "14"
+                }
+              },
+              {
+                "_": "11.00",
+                "$": {
+                  "active": "1",
+                  "type": "x",
+                  "typeid": "15"
+                }
+              },
+              {
+                "_": "1.70",
+                "$": {
+                  "active": "1",
+                  "type": "2",
+                  "typeid": "16"
+                }
+              }
+            ]
+          },
+          {
+            "$": {
+              "active": "1",
+              "changed": "true",
+              "combination": "0",
+              "freetext": "Total Goals",
+              "id": "31492005",
+              "specialoddsvalue": "1.5",
+              "type": "to",
+              "typeid": "5",
+              "mostbalanced": "0"
+            },
+            "oddsfield": [
+              {
+                "_": "1.20",
+                "$": {
+                  "active": "1",
+                  "type": "o",
+                  "typeid": "11"
+                }
+              },
+              {
+                "_": "3.95",
+                "$": {
+                  "active": "1",
+                  "type": "u",
+                  "typeid": "12"
+                }
+              }
+            ]
+          },
+          {
+            "$": {
+              "active": "1",
+              "changed": "true",
+              "combination": "0",
+              "freetext": "Correct Score",
+              "id": "31492029",
+              "subtype": "104",
+              "type": "ftnw",
+              "typeid": "8",
+              "mostbalanced": "1"
+            },
+            "oddsfield": [
+              {
+                "_": "13.00",
+                "$": {
+                  "active": "1",
+                  "type": "0:0",
+                  "typeid": "225"
+                }
+              },
+              {
+                "_": "7.50",
+                "$": {
+                  "active": "1",
+                  "type": "1:1",
+                  "typeid": "233"
+                }
+              },
+              {
+                "_": "13.00",
+                "$": {
+                  "active": "1",
+                  "type": "2:2",
+                  "typeid": "240"
+                }
+              },
+              {
+                "_": "38.00",
+                "$": {
+                  "active": "1",
+                  "type": "3:3",
+                  "typeid": "246"
+                }
+              },
+              {
+                "_": "13.00",
+                "$": {
+                  "active": "1",
+                  "type": "1:0",
+                  "typeid": "226"
+                }
+              },
+              {
+                "_": "20.00",
+                "$": {
+                  "active": "1",
+                  "type": "2:0",
+                  "typeid": "227"
+                }
+              },
+              {
+                "_": "13.00",
+                "$": {
+                  "active": "1",
+                  "type": "2:1",
+                  "typeid": "234"
+                }
+              },
+              {
+                "_": "37.00",
+                "$": {
+                  "active": "1",
+                  "type": "3:0",
+                  "typeid": "228"
+                }
+              },
+              {
+                "_": "25.00",
+                "$": {
+                  "active": "1",
+                  "type": "3:1",
+                  "typeid": "235"
+                }
+              },
+              {
+                "_": "27.00",
+                "$": {
+                  "active": "1",
+                  "type": "3:2",
+                  "typeid": "241"
+                }
+              },
+              {
+                "_": "50.00",
+                "$": {
+                  "active": "1",
+                  "type": "4:0",
+                  "typeid": "229"
+                }
+              },
+              {
+                "_": "50.00",
+                "$": {
+                  "active": "1",
+                  "type": "4:1",
+                  "typeid": "236"
+                }
+              },
+              {
+                "_": "50.00",
+                "$": {
+                  "active": "1",
+                  "type": "4:2",
+                  "typeid": "242"
+                }
+              },
+              {
+                "_": "50.00",
+                "$": {
+                  "active": "1",
+                  "type": "4:3",
+                  "typeid": "47"
+                }
+              },
+              {
+                "$": {
+                  "active": "1",
+                  "type": "5:0",
+                  "typeid": "230"
+                }
+              },
+              {
+                "$": {
+                  "active": "1",
+                  "type": "5:1",
+                  "typeid": "237"
+                }
+              },
+              {
+                "$": {
+                  "active": "1",
+                  "type": "6:0",
+                  "typeid": "231"
+                }
+              },
+              {
+                "$": {
+                  "active": "1",
+                  "type": "6:1",
+                  "typeid": "11"
+                }
+              },
+              {
+                "$": {
+                  "active": "1",
+                  "type": "7:0",
+                  "typeid": "50"
+                }
+              },
+              {
+                "_": "9.00",
+                "$": {
+                  "active": "1",
+                  "type": "0:1",
+                  "typeid": "232"
+                }
+              },
+              {
+                "_": "10.00",
+                "$": {
+                  "active": "1",
+                  "type": "0:2",
+                  "typeid": "238"
+                }
+              },
+              {
+                "_": "9.00",
+                "$": {
+                  "active": "1",
+                  "type": "1:2",
+                  "typeid": "239"
+                }
+              },
+              {
+                "_": "15.00",
+                "$": {
+                  "active": "1",
+                  "type": "0:3",
+                  "typeid": "243"
+                }
+              },
+              {
+                "_": "14.00",
+                "$": {
+                  "active": "1",
+                  "type": "1:3",
+                  "typeid": "244"
+                }
+              },
+              {
+                "_": "20.00",
+                "$": {
+                  "active": "1",
+                  "type": "2:3",
+                  "typeid": "245"
+                }
+              },
+              {
+                "_": "27.00",
+                "$": {
+                  "active": "1",
+                  "type": "0:4",
+                  "typeid": "247"
+                }
+              },
+              {
+                "_": "24.00",
+                "$": {
+                  "active": "1",
+                  "type": "1:4",
+                  "typeid": "248"
+                }
+              },
+              {
+                "_": "35.00",
+                "$": {
+                  "active": "1",
+                  "type": "2:4",
+                  "typeid": "249"
+                }
+              },
+              {
+                "_": "50.00",
+                "$": {
+                  "active": "1",
+                  "type": "3:4",
+                  "typeid": "60"
+                }
+              },
+              {
+                "_": "50.00",
+                "$": {
+                  "active": "1",
+                  "type": "0:5",
+                  "typeid": "250"
+                }
+              },
+              {
+                "_": "48.00",
+                "$": {
+                  "active": "1",
+                  "type": "1:5",
+                  "typeid": "251"
+                }
+              },
+              {
+                "$": {
+                  "active": "1",
+                  "type": "0:6",
+                  "typeid": "252"
+                }
+              },
+              {
+                "$": {
+                  "active": "1",
+                  "type": "1:6",
+                  "typeid": "22"
+                }
+              },
+              {
+                "$": {
+                  "active": "1",
+                  "type": "0:7",
+                  "typeid": "63"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

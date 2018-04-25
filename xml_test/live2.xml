@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<LiveOdds
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        status="change"
+        timestamp="1512871163">
+    <Match
+            active="1"
+            betstatus="started"
+            matchid="199722"
+            msgnr="12"
+            cornersaway="0"
+            cornershome="0"
+            redcardsaway="0"
+            redcardshome="0"
+            yellowcardsaway="0"
+            yellowcardshome="0"
+            yellowredcardssaway="0"
+            yellowredcardshome="0"
+            score="0:0"
+            setscore1="0:0"
+            setscore2="0:0"
+            status="1p"
+            matchtime="1"
+            matchtime_extended="00:54">
+        <MatchInfo>
+            <DateOfMatch>1512903600</DateOfMatch>
+            <Sport id="1">Soccer</Sport>
+            <Category id="68">England</Category>
+            <Tournament id="1">Premier League/2017/2018</Tournament>
+            <HomeTeam id="4869" uniqueid="45">Southampton</HomeTeam>
+            <AwayTeam id="4871" uniqueid="42">Arsenal</AwayTeam>
+        </MatchInfo>
+        <Score
+            home="1"
+            away="0"
+            id="3149201"
+            player="S. Johansen"
+            scoringteam="home"
+            time="55"
+            type="live"
+            playerid="115622"
+        />
+        <Card
+            canceled="false"
+            id="3149201"
+            player="S. Johansen"
+            team="home"
+            time="58"
+            type="yellow"
+            playerid="115622"
+        />
+        <Odds active="1" changed="true" combination="0" freetext="Fulltime Result" id="31492001" specialoddsvalue="" type="3w" typeid="2" mostbalanced="1">
+            <OddsField active="1" type="1" typeid="1">3.75</OddsField>
+            <OddsField active="1" type="x" typeid="2">3.45</OddsField>
+            <OddsField active="1" type="2" typeid="3">1.95</OddsField>
+        </Odds>
+        <Odds active="1" changed="true" combination="0" freetext="Next Goal" id="31492003" specialoddsvalue="0:0" subtype="13" type="ft3w" typeid="6" mostbalanced="1">
+            <OddsField active="1" type="1" typeid="14">2.35</OddsField>
+            <OddsField active="1" type="x" typeid="15">11.00</OddsField>
+            <OddsField active="1" type="2" typeid="16">1.70</OddsField>
+        </Odds>
+        <Odds active="1" changed="true" combination="0" freetext="Total Goals" id="31492005" specialoddsvalue="1.5" type="to" typeid="5" mostbalanced="0">
+            <OddsField active="1" type="o" typeid="11">1.20</OddsField>
+            <OddsField active="1" type="u" typeid="12">3.95</OddsField>
+        </Odds>
+        <Odds active="1" changed="true" combination="0" freetext="Correct Score"    id="31492029" subtype="104" type="ftnw" typeid="8" mostbalanced="1">
+            <OddsField active="1" type="0:0" typeid="225">13.00</OddsField>
+            <OddsField active="1" type="1:1" typeid="233">7.50</OddsField>
+            <OddsField active="1" type="2:2" typeid="240">13.00</OddsField>
+            <OddsField active="1" type="3:3" typeid="246">38.00</OddsField>
+            <OddsField active="1" type="1:0" typeid="226">13.00</OddsField>
+            <OddsField active="1" type="2:0" typeid="227">20.00</OddsField>
+            <OddsField active="1" type="2:1" typeid="234">13.00</OddsField>
+            <OddsField active="1" type="3:0" typeid="228">37.00</OddsField>
+            <OddsField active="1" type="3:1" typeid="235">25.00</OddsField>
+            <OddsField active="1" type="3:2" typeid="241">27.00</OddsField>
+            <OddsField active="1" type="4:0" typeid="229">50.00</OddsField>
+            <OddsField active="1" type="4:1" typeid="236">50.00</OddsField>
+            <OddsField active="1" type="4:2" typeid="242">50.00</OddsField>
+            <OddsField active="1" type="4:3" typeid="47">50.00</OddsField>
+            <OddsField active="1" type="5:0" typeid="230"/>
+            <OddsField active="1" type="5:1" typeid="237"/>
+            <OddsField active="1" type="6:0" typeid="231"/>
+            <OddsField active="1" type="6:1" typeid="11"/>
+            <OddsField active="1" type="7:0" typeid="50"/>
+            <OddsField active="1" type="0:1" typeid="232">9.00</OddsField>
+            <OddsField active="1" type="0:2" typeid="238">10.00</OddsField>
+            <OddsField active="1" type="1:2" typeid="239">9.00</OddsField>
+            <OddsField active="1" type="0:3" typeid="243">15.00</OddsField>
+            <OddsField active="1" type="1:3" typeid="244">14.00</OddsField>
+            <OddsField active="1" type="2:3" typeid="245">20.00</OddsField>
+            <OddsField active="1" type="0:4" typeid="247">27.00</OddsField>
+            <OddsField active="1" type="1:4" typeid="248">24.00</OddsField>
+            <OddsField active="1" type="2:4" typeid="249">35.00</OddsField>
+            <OddsField active="1" type="3:4" typeid="60">50.00</OddsField>
+            <OddsField active="1" type="0:5" typeid="250">50.00</OddsField>
+            <OddsField active="1" type="1:5" typeid="251">48.00</OddsField>
+            <OddsField active="1" type="0:6" typeid="252"/>
+            <OddsField active="1" type="1:6" typeid="22"/>
+            <OddsField active="1" type="0:7" typeid="63"/>
+        </Odds>
+    </Match>
+</LiveOdds>
