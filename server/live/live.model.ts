@@ -1,6 +1,6 @@
 import { AbstractModel } from "../common/model";
 import { ThLiveOddsMsgBody } from "./types";
-import {LiveMapper} from "./live.mapper";
+import { LiveMapper } from "./live.mapper";
 
 export class LiveModel extends AbstractModel {
     constructor(protected mapper: LiveMapper) {

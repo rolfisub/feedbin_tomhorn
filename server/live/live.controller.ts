@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { AbstractController } from "../common/controller";
 import { LiveModel } from "./live.model";
-import {ThLiveOddsMsgBody} from "./types";
+import { ThLiveOddsMsgBody } from "./types";
 
 export class LiveController extends AbstractController {
     constructor(protected model: LiveModel) {

@@ -1,7 +1,8 @@
-import {ThLiveOddsMsgBody, ThMatchModel, ThOdds, ThOddsField} from "./types";
+import { ThLiveOddsMsgBody, ThMatchModel, ThOdds, ThOddsField } from "./types";
 import {
     LiveEvent,
-    LiveMeta, LiveMsgModel,
+    LiveMeta,
+    LiveMsgModel,
     LiveOddsInfo,
     LiveOddsSelection
 } from "../common/live/live.types";
@@ -55,16 +56,12 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
         return events;
     }
 
-
-
-    public getOddsInfo(
-        msg: IntegrationMsg<ThLiveOddsMsgBody>
-    ): LiveOddsInfo[] {
+    public getOddsInfo(msg: IntegrationMsg<ThLiveOddsMsgBody>): LiveOddsInfo[] {
         const liveoddsinfo: LiveOddsInfo[] = [];
         const match = msg.data.oddsmaker9000liveodds.match;
-        match.forEach((m: ThMatchModel)=> {
-            const {odds} = m;
-            if(odds) {
+        match.forEach((m: ThMatchModel) => {
+            const { odds } = m;
+            if (odds) {
                 odds.forEach((o: ThOdds) => {
                     liveoddsinfo.push({
                         event_id: m.$.matchid,
@@ -74,12 +71,12 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                         odd_type_id: o.$.typeid,
                         odd_type: o.$.type,
                         odd_subtype: o.$.subtype,
-                        active: o.$.active === '1' ? "true" : "false",
+                        active: o.$.active === "1" ? "true" : "false",
                         handicap: o.$.specialoddsvalue,
-                        handicap_rest: '',
+                        handicap_rest: "",
                         changed: o.$.changed,
-                        combinations: '',
-                        is_balanced: '',
+                        combinations: "",
+                        is_balanced: "",
                         manual: 0,
                         is_line_frozen: 0
                     });
@@ -94,13 +91,13 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
     ): LiveOddsSelection[] {
         const liveoddssel: LiveOddsSelection[] = [];
         const match = msg.data.oddsmaker9000liveodds.match;
-        match.forEach((m: ThMatchModel)=> {
-            const {odds} = m;
-            if(odds) {
+        match.forEach((m: ThMatchModel) => {
+            const { odds } = m;
+            if (odds) {
                 odds.forEach((o: ThOdds) => {
-                    const {oddsfield} = o;
+                    const { oddsfield } = o;
                     var selId = 0;
-                    if(oddsfield) {
+                    if (oddsfield) {
                         oddsfield.forEach((of: ThOddsField) => {
                             liveoddssel.push({
                                 event_id: m.$.matchid,
@@ -109,13 +106,13 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                                 sel_name: of.$.type,
                                 sel_odd: of._,
                                 active: of.$.active,
-                                outcome: '',
-                                void_factor: '-1',
+                                outcome: "",
+                                void_factor: "-1",
                                 player_id: -1,
                                 type_id: parseInt(of.$.typeid, 10),
                                 type_name: of.$.type,
                                 auto: 0,
-                                is_selection_frozen: '',
+                                is_selection_frozen: ""
                             });
                             selId++;
                         });
@@ -130,5 +127,4 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
         const metas: LiveMeta[] = [];
         return metas;
     }
-
 }
