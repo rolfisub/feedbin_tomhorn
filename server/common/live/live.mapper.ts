@@ -6,7 +6,7 @@ export interface IntegrationMsg<M> {
 }
 
 export abstract class CommonLiveMapper<M> extends AbstractMapper{
-    protected getCommonMsgModel(msg: IntegrationMsg<M>): LiveMsgModel {
+    public getCommonMsgModel(msg: IntegrationMsg<M>): LiveMsgModel {
         return {
             events: this.getEvents(msg),
             metas: this.getMetas(msg),
@@ -15,8 +15,8 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper{
         } as LiveMsgModel;
     };
 
-    protected abstract getEvents(msg: IntegrationMsg<M>): LiveEvent[];
-    protected abstract getMetas(msg: IntegrationMsg<M>): LiveMeta[];
-    protected abstract getOddsInfo(msg: IntegrationMsg<M>): LiveOddsInfo[];
-    protected abstract getOddsSelections(msg: IntegrationMsg<M>): LiveOddsSelection[];
+    public abstract getEvents(msg: IntegrationMsg<M>): LiveEvent[];
+    public abstract getMetas(msg: IntegrationMsg<M>): LiveMeta[];
+    public abstract getOddsInfo(msg: IntegrationMsg<M>): LiveOddsInfo[];
+    public abstract getOddsSelections(msg: IntegrationMsg<M>): LiveOddsSelection[];
 }

@@ -1,8 +1,12 @@
 import { AbstractModel } from "../common/model";
-import { LiveOddsMsgBody } from "./types";
+import { ThLiveOddsMsgBody } from "./types";
+import {LiveMapper} from "./live.mapper";
 
 export class LiveModel extends AbstractModel {
-    public saveMsg(msg: LiveOddsMsgBody): void {
-        console.log("msg received.");
+    constructor(protected mapper: LiveMapper) {
+        super(mapper);
+    }
+    public saveMsg(msg: ThLiveOddsMsgBody): void {
+        this.mapper.saveMsgToDb(msg);
     }
 }

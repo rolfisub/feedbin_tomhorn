@@ -1,4 +1,4 @@
-interface OddsField {
+export interface ThOddsField {
     _: string;
     $: {
         active: "1" | "0";
@@ -6,7 +6,7 @@ interface OddsField {
         typeid: string;
     }
 }
-interface Odds {
+export interface ThOdds {
     $: {
         active: "1" | "0";
         changed: "true" | "false";
@@ -14,14 +14,15 @@ interface Odds {
         freetext: string;
         id: string;
         specialoddsvalue: string;
+        subtype: string;
         type: string;
         typeid: string;
         mostbalanced: string;
     };
-    oddsfield?: OddsField[];
+    oddsfield?: ThOddsField[];
 }
 
-interface Card {
+export interface ThCard {
     $: {
         canceled: "true" | "false";
         id: string;
@@ -33,7 +34,7 @@ interface Card {
     }
 }
 
-interface Score {
+export interface ThScore {
     $: {
         home: string;
         away: string;
@@ -46,30 +47,30 @@ interface Score {
     }
 }
 
-interface MatchIdModel {
+export interface ThMatchIdModel {
     _: string;
     $: {
         id: string;
     }
 }
 
-interface MatchTeam extends MatchIdModel {
+export interface ThMatchTeam extends ThMatchIdModel {
     $: {
         id: string;
         uniqueid: string;
     }
 }
 
-export interface MatchInfo {
+export interface ThMatchInfo {
     dateofmatch: string[];
-    sport: MatchIdModel[];
-    category: MatchIdModel[];
-    tournament: MatchIdModel[];
-    hometeam: MatchTeam[];
-    awayteam: MatchTeam[];
+    sport: ThMatchIdModel[];
+    category: ThMatchIdModel[];
+    tournament: ThMatchIdModel[];
+    hometeam: ThMatchTeam[];
+    awayteam: ThMatchTeam[];
 }
 
-export interface MatchModel {
+export interface ThMatchModel {
     $: {
         active: string;
         betstatus: string;
@@ -86,20 +87,20 @@ export interface MatchModel {
         score: string;
         status: string;
     };
-    matchinfo?: MatchInfo[];
-    score?: Score[];
-    card?: Card[];
-    odds?: Odds[];
+    matchinfo?: ThMatchInfo[];
+    score?: ThScore[];
+    card?: ThCard[];
+    odds?: ThOdds[];
 }
 
-export interface LiveOddsMsgBody {
-    liveodds: {
+export interface ThLiveOddsMsgBody {
+    oddsmaker9000liveodds: {
         $: {
             "xmlns:xsd": string;
             "xmlns:xsi": string;
             status: string;
             timestamp: string;
         };
-        match?: MatchModel[];
+        match?: ThMatchModel[];
     };
 }
