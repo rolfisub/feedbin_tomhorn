@@ -1,0 +1,19 @@
+Detected in use:
+bet_status STOPPED | STARTED
+cleared_score 101:80
+event_status
+game_score
+match_time
+remaining_time
+remaining_time_period
+score
+set_scores
+
+other from th:
+baseball_balls 0 to 2
+baseball_bases 3 numbers by coma (0,1,0) or (0,0,1)
+batter_away 1 to 9
+batter_home 1 to 9
+outs
+strikes
+

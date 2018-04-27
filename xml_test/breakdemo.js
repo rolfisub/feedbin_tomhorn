@@ -4,6 +4,6 @@ var formatter = require('xml-formatter');
 
 var counter = 0;
 for(msg of demo) {
-    fs.writeFileSync('./msgs/' + counter + '.xml', formatter(msg));
+    fs.writeFileSync('./partials/' + counter + '.xml', formatter(msg));
     counter++;
 }

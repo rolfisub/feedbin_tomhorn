@@ -45,10 +45,7 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                     event_startdate: m.matchinfo[0].dateofmatch[0],
                     extra_info: "",
                     streaming: "",
-                    tv_channels: "",
-                    is_sport_frozen: 0,
-                    is_league_frozen: 0,
-                    is_event_frozen: 0
+                    tv_channels: ""
                 });
             }
         }, this);
@@ -76,9 +73,7 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                         handicap_rest: "",
                         changed: o.$.changed,
                         combinations: "",
-                        is_balanced: "",
-                        manual: 0,
-                        is_line_frozen: 0
+                        is_balanced: ""
                     });
                 });
             }
@@ -96,7 +91,7 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
             if (odds) {
                 odds.forEach((o: ThOdds) => {
                     const { oddsfield } = o;
-                    var selId = 0;
+                    let selId = 0;
                     if (oddsfield) {
                         oddsfield.forEach((of: ThOddsField) => {
                             liveoddssel.push({
@@ -106,13 +101,11 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                                 sel_name: of.$.type,
                                 sel_odd: of._,
                                 active: of.$.active,
-                                outcome: "",
+                                outcome: of.$.outcome ? of.$.outcome : "0",
                                 void_factor: "-1",
                                 player_id: -1,
                                 type_id: parseInt(of.$.typeid, 10),
-                                type_name: of.$.type,
-                                auto: 0,
-                                is_selection_frozen: ""
+                                type_name: of.$.type
                             });
                             selId++;
                         });
@@ -125,6 +118,59 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
 
     public getMetas(msg: IntegrationMsg<ThLiveOddsMsgBody>): LiveMeta[] {
         const metas: LiveMeta[] = [];
+        const match = msg.data.oddsmaker9000liveodds.match;
+        match.forEach((m: ThMatchModel) => {
+            metas.push({
+                event_id: m.$.matchid,
+                meta_key: 'bet_status',
+                meta_value: m.$.betstatus.toUpperCase()
+            });
+            metas.push({
+                event_id: m.$.matchid,
+                meta_key: 'cleared_score',
+                meta_value: m.$.score
+            });
+            metas.push({
+                event_id: m.$.matchid,
+                meta_key: 'event_status',
+                meta_value: m.$.status.toUpperCase()
+            });
+            metas.push({
+                event_id: m.$.matchid,
+                meta_key: 'game_score',
+                meta_value: m.$.score
+            });
+            metas.push({
+                event_id: m.$.matchid,
+                meta_key: 'match_time',
+                meta_value: m.$.matchtime_extended
+            });
+            metas.push({
+                event_id: m.$.matchid,
+                meta_key: 'remaining_time',
+                meta_value: ''
+            });
+            metas.push({
+                event_id: m.$.matchid,
+                meta_key: 'remaining_time_period',
+                meta_value: ''
+            });
+            metas.push({
+                event_id: m.$.matchid,
+                meta_key: 'score',
+                meta_value: m.$.score
+            });
+            metas.push({
+                event_id: m.$.matchid,
+                meta_key: 'set_scores',
+                meta_value: m.$.setscore1
+            });
+            metas.push({
+                event_id: m.$.matchid,
+                meta_key: 'set_scores',
+                meta_value: m.$.setscore2
+            });
+        });
         return metas;
     }
 }

@@ -12,7 +12,7 @@ fs.readdirSync('node_modules')
 
 module.exports = {
     entry: './server/server.ts',
-    mode: "development",
+    mode: "production",
     output: {
         path: __dirname + '/build',
         filename: 'server.js',
@@ -37,7 +37,8 @@ module.exports = {
             extractComments: true,
             sourceMap: false,
             uglifyOptions: {
-                mangle: true
+                mangle: false,
+                minimize: true
             }
         }),
         new CopyWebpackPlugin([

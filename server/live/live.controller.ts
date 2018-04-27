@@ -15,3 +15,13 @@ export class LiveController extends AbstractController {
         });
     }
 }
+
+/**
+ * TODO:
+ * extract meta data
+ * remove engine fields from interfaces DONE
+ * save events to mysql
+ * save oddsinfo to mysql
+ * save odds selection to mysql
+ * save meta data to mysql
+ */

@@ -4,6 +4,7 @@ export interface ThOddsField {
         active: "1" | "0";
         type: string;
         typeid: string;
+        outcome?: '1' | '0';
     }
 }
 export interface ThOdds {
@@ -86,6 +87,10 @@ export interface ThMatchModel {
         yellowredcardshome: string;
         score: string;
         status: string;
+        matchtime: string;
+        matchtime_extended: string;
+        setscore1: string;
+        setscore2: string;
     };
     matchinfo?: ThMatchInfo[];
     score?: ThScore[];

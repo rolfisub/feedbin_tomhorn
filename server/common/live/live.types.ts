@@ -13,9 +13,6 @@ export interface LiveEvent {
     extra_info: string;
     streaming: string;
     tv_channels: string;
-    is_sport_frozen: number;
-    is_league_frozen: number;
-    is_event_frozen: number;
 }
 
 export interface LiveMeta {
@@ -38,8 +35,6 @@ export interface LiveOddsInfo {
     changed: string;
     combinations: string;
     is_balanced: string;
-    manual: number;
-    is_line_frozen: number;
 }
 
 export interface LiveOddsSelection {
@@ -54,8 +49,6 @@ export interface LiveOddsSelection {
     player_id: number;
     type_id: number;
     type_name: string;
-    auto: number;
-    is_selection_frozen: string;
 }
 
 export interface LiveMsgModel {
