@@ -4,10 +4,10 @@
     "config": {
       "connectionLimit": 10,
       "host": "localhost",
-      "user": "testuser",
-      "password": "lkS07v25uyjNLYHt",
+      "user": "sportsbook",
+      "password": "pass1221",
       "port": 3306,
-      "database": "test1"
+      "database": "sportsbook"
     }
   }
 }
