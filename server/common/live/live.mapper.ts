@@ -449,6 +449,8 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
     }
 
     private handleMysqlError(err: MysqlError): void {
+        console.log(err);
+        process.exit(5);
         return;
     }
 }
