@@ -1,7 +1,7 @@
-import {Pool, PoolConnection} from "promise-mysql";
+import { Pool, PoolConnection } from "promise-mysql";
 import { createMysqlConnectionPool } from "../services/mysql.connection";
 import config from "../config";
-import * as Bluebird from 'bluebird';
+import * as Bluebird from "bluebird";
 
 export class AbstractMapper {
     protected pool: Pool;

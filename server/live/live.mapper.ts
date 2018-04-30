@@ -166,16 +166,20 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                 meta_key: "score",
                 meta_value: m.$.score
             });
-            metas.push({
-                event_id: m.$.matchid,
-                meta_key: "set_scores",
-                meta_value: m.$.setscore1
-            });
-            metas.push({
-                event_id: m.$.matchid,
-                meta_key: "set_scores",
-                meta_value: m.$.setscore2
-            });
+
+            if (m.$.setscore1) {
+                metas.push({
+                    event_id: m.$.matchid,
+                    meta_key: "set_scores",
+                    meta_value: m.$.setscore1
+                });
+            } else if (m.$.setscore2) {
+                metas.push({
+                    event_id: m.$.matchid,
+                    meta_key: "set_scores",
+                    meta_value: m.$.setscore2
+                });
+            }
         });
         return metas;
     }

@@ -6,9 +6,8 @@ import {
     LiveOddsInfo,
     LiveOddsSelection
 } from "./live.types";
-import { MysqlError, Query } from "mysql";
-import {PoolConnection} from "promise-mysql";
-import * as moment from 'moment';
+import { MysqlError } from "mysql";
+import { PoolConnection } from "promise-mysql";
 
 export interface IntegrationMsg<M> {
     data: M;
@@ -32,21 +31,92 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
     ): LiveOddsSelection[];
 
     public async saveLiveMsg(msg: LiveMsgModel): Promise<void> {
-        await this.saveLiveEvents(msg);
+        this.saveLiveEvents(msg);
         this.saveLiveMetas(msg);
         this.saveLiveOddsInfo(msg);
         this.saveLiveOddsSelections(msg);
         return;
     }
 
-    protected async saveLiveEvents(msg: LiveMsgModel): Promise<void> {
-        this.getCon().then(con => {
-            msg.events.forEach(async (e: LiveEvent) => {
-                await this.saveLiveEvent(e, con);
+    protected saveLiveMetas(msg: LiveMsgModel): void {
+        this.getCon()
+            .then(con => {
+                msg.metas.forEach(async (m: LiveMeta) => {
+                    await this.saveLiveMeta(m, con);
+                });
+                con.release();
+            })
+            .catch(err => {
+                this.handleMysqlError(err);
             });
-        }).catch( err => {
-            this.handleMysqlError(err);
-        });
+        return;
+    }
+
+    protected async saveLiveMeta(
+        m: LiveMeta,
+        con: PoolConnection
+    ): Promise<void> {
+        const exists = await this.metaLiveExists(m, con);
+        if (exists) {
+            //update
+            await this.updateLiveMeta(m, con);
+        } else {
+            //insert
+            await this.insertLiveMeta(m, con);
+        }
+    }
+
+    protected async insertLiveMeta(
+        m: LiveMeta,
+        con: PoolConnection
+    ): Promise<void> {
+        const insert: string =
+            "insert into liveodds_meta (" +
+            " event_id, " +
+            " meta_key, " +
+            " meta_value) " +
+            " values (?,?,?)";
+        const values: string[] = [
+            m.event_id,
+            m.meta_key,
+            m.meta_value ? m.meta_value : ""
+        ];
+        await con.query(insert, values);
+    }
+
+    protected async updateLiveMeta(
+        m: LiveMeta,
+        con: PoolConnection
+    ): Promise<void> {
+        const update: string =
+            "update liveodds_meta set " +
+            "meta_value = ? " +
+            "where event_id = ? AND meta_key = ?";
+        const values: string[] = [m.meta_value, m.event_id, m.meta_key];
+        await con.query(update, values);
+    }
+
+    protected async metaLiveExists(
+        m: LiveMeta,
+        con: PoolConnection
+    ): Promise<boolean> {
+        const query =
+            "select event_id, meta_key from liveodds_meta where event_id = ? AND meta_key = ?";
+        const data = await con.query(query, [m.event_id, m.meta_key]);
+        return !!data.length;
+    }
+
+    protected saveLiveEvents(msg: LiveMsgModel): void {
+        this.getCon()
+            .then(con => {
+                msg.events.forEach(async (e: LiveEvent) => {
+                    await this.saveLiveEvent(e, con);
+                });
+                con.release();
+            })
+            .catch(err => {
+                this.handleMysqlError(err);
+            });
         return;
     }
 
@@ -68,8 +138,12 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
         }
     }
 
-    protected async updateLiveEvent(e: LiveEvent, con: PoolConnection):Promise<void> {
-        const update: string = "update liveodds_events set " +
+    protected async updateLiveEvent(
+        e: LiveEvent,
+        con: PoolConnection
+    ): Promise<void> {
+        const update: string =
+            "update liveodds_events set " +
             " event_name = ?, " +
             " away_rot = ?, " +
             " away_name = ?, " +
@@ -149,13 +223,7 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
     ): Promise<boolean> {
         const query = "select event_id from liveodds_events where event_id = ?";
         const data = await con.query(query, [eventId]);
-        console.log("data");
-        console.log(data.length);
         return !!data.length;
-    }
-
-    protected saveLiveMetas(msg: LiveMsgModel): void {
-        return;
     }
 
     protected saveLiveOddsInfo(msg: LiveMsgModel): void {
