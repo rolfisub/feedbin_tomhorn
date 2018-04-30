@@ -33,9 +33,121 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
     public async saveLiveMsg(msg: LiveMsgModel): Promise<void> {
         this.saveLiveEvents(msg);
         this.saveLiveMetas(msg);
-        this.saveLiveOddsInfo(msg);
+        this.saveLiveOddsInfos(msg);
         this.saveLiveOddsSelections(msg);
         return;
+    }
+
+    protected saveLiveOddsInfos(msg: LiveMsgModel): void {
+        this.getCon()
+            .then(con => {
+                msg.oddsinfo.forEach(async (oi: LiveOddsInfo) => {
+                    await this.saveLiveOddsInfo(oi, con);
+                });
+                con.release();
+            })
+            .catch(err => {
+                this.handleMysqlError(err);
+            });
+        return;
+    }
+
+    protected async saveLiveOddsInfo(
+        oi: LiveOddsInfo,
+        con: PoolConnection
+    ): Promise<void> {
+        const exists = await this.oddsInfoExists(oi, con);
+        if (exists) {
+            //update
+            await this.updateLiveOddsInfo(oi, con);
+        } else {
+            //insert
+            await this.insertLiveOddsInfo(oi, con);
+        }
+    }
+
+    protected async updateLiveOddsInfo(
+        oi: LiveOddsInfo,
+        con: PoolConnection
+    ): Promise<void> {
+        const update: string =
+            "update liveodds_oddsinfo set " +
+            " odd_name = ?," +
+            " odd_text = ?," +
+            " odd_type_id = ?," +
+            " odd_type = ?," +
+            " odd_subtype = ?," +
+            " active = ?," +
+            " handicap = ?," +
+            " handicap_rest = ?," +
+            " changed = ?, " +
+            " combinations = ?," +
+            " is_balanced = ? " +
+            " where event_id = ? AND odd_id = ?";
+        const values: string[] = [
+            oi.odd_name,
+            oi.odd_text,
+            oi.odd_type_id,
+            oi.odd_type,
+            oi.odd_subtype,
+            oi.active,
+            oi.handicap,
+            oi.handicap_rest,
+            oi.changed,
+            oi.combinations,
+            oi.is_balanced,
+            oi.event_id,
+            oi.odd_id
+        ];
+        await con.query(update, values);
+    }
+
+    protected async insertLiveOddsInfo(
+        oi: LiveOddsInfo,
+        con: PoolConnection
+    ): Promise<void> {
+        const insert: string =
+            "insert into liveodds_oddsinfo (" +
+            " event_id, " +
+            " odd_id, " +
+            " odd_name," +
+            " odd_text," +
+            " odd_type_id," +
+            " odd_type," +
+            " odd_subtype," +
+            " active," +
+            " handicap," +
+            " handicap_rest," +
+            " changed, " +
+            " combinations," +
+            " is_balanced) " +
+            " values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        const values: string[] = [
+            oi.event_id,
+            oi.odd_id,
+            oi.odd_name,
+            oi.odd_text,
+            oi.odd_type_id,
+            oi.odd_type,
+            oi.odd_subtype,
+            oi.active,
+            oi.handicap,
+            oi.handicap_rest,
+            oi.changed,
+            oi.combinations,
+            oi.is_balanced
+        ];
+        await con.query(insert, values);
+    }
+
+    protected async oddsInfoExists(
+        oi: LiveOddsInfo,
+        con: PoolConnection
+    ): Promise<boolean> {
+        const query =
+            "select event_id, odd_id from liveodds_oddsinfo where event_id = ? AND odd_id = ?";
+        const data = await con.query(query, [oi.event_id, oi.odd_id]);
+        return !!data.length;
     }
 
     protected saveLiveMetas(msg: LiveMsgModel): void {
@@ -92,7 +204,11 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
             "update liveodds_meta set " +
             "meta_value = ? " +
             "where event_id = ? AND meta_key = ?";
-        const values: string[] = [m.meta_value, m.event_id, m.meta_key];
+        const values: string[] = [
+            m.meta_value,
+            m.event_id,
+            m.meta_key ? m.meta_value : ""
+        ];
         await con.query(update, values);
     }
 
@@ -224,10 +340,6 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
         const query = "select event_id from liveodds_events where event_id = ?";
         const data = await con.query(query, [eventId]);
         return !!data.length;
-    }
-
-    protected saveLiveOddsInfo(msg: LiveMsgModel): void {
-        return;
     }
 
     protected saveLiveOddsSelections(msg: LiveMsgModel): void {

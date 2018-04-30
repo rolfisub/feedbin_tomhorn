@@ -73,9 +73,9 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                         odd_text: o.$.freetext,
                         odd_type_id: o.$.typeid,
                         odd_type: o.$.type,
-                        odd_subtype: o.$.subtype,
+                        odd_subtype: o.$.subtype ? o.$.subtype : '',
                         active: o.$.active === "1" ? "true" : "false",
-                        handicap: o.$.specialoddsvalue,
+                        handicap: o.$.specialoddsvalue ? o.$.specialoddsvalue : '',
                         handicap_rest: "",
                         changed: o.$.changed,
                         combinations: "",
@@ -151,7 +151,7 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                 meta_key: "match_time",
                 meta_value: m.$.matchtime_extended
             });
-            metas.push({
+           /* metas.push({
                 event_id: m.$.matchid,
                 meta_key: "remaining_time",
                 meta_value: ""
@@ -160,7 +160,7 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                 event_id: m.$.matchid,
                 meta_key: "remaining_time_period",
                 meta_value: ""
-            });
+            });*/
             metas.push({
                 event_id: m.$.matchid,
                 meta_key: "score",
