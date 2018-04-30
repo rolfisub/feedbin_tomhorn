@@ -7,16 +7,17 @@ import {
     LiveOddsSelection
 } from "../common/live/live.types";
 import { CommonLiveMapper, IntegrationMsg } from "../common/live/live.mapper";
+import * as moment from "moment";
 
 export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
-    public saveMsgToDb(msg: ThLiveOddsMsgBody): void {
+    public async saveMsgToDb(msg: ThLiveOddsMsgBody): Promise<void> {
         const imsg: IntegrationMsg<ThLiveOddsMsgBody> = {
             data: msg
         };
         const liveMsgModel: LiveMsgModel = this.getCommonMsgModel(imsg);
-        console.log('msg received, saving to db...');
-        this.saveLiveMsg(liveMsgModel);
-        console.log('done.');
+        console.log("msg received, saving to db...");
+        await this.saveLiveMsg(liveMsgModel);
+        console.log("done.");
     }
 
     public getEvents(msg: IntegrationMsg<ThLiveOddsMsgBody>): LiveEvent[] {
@@ -44,7 +45,10 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                         m.matchinfo[0].category[0]._ +
                         " " +
                         m.matchinfo[0].tournament[0]._,
-                    event_startdate: m.matchinfo[0].dateofmatch[0],
+                    event_startdate: moment
+                        .unix(parseInt(m.matchinfo[0].dateofmatch[0], 10))
+                        .format("YYYY-MM-DD HH:MM:SS")
+                        .toString(),
                     extra_info: "",
                     streaming: "",
                     tv_channels: ""
@@ -124,52 +128,52 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
         match.forEach((m: ThMatchModel) => {
             metas.push({
                 event_id: m.$.matchid,
-                meta_key: 'bet_status',
+                meta_key: "bet_status",
                 meta_value: m.$.betstatus.toUpperCase()
             });
             metas.push({
                 event_id: m.$.matchid,
-                meta_key: 'cleared_score',
+                meta_key: "cleared_score",
                 meta_value: m.$.score
             });
             metas.push({
                 event_id: m.$.matchid,
-                meta_key: 'event_status',
+                meta_key: "event_status",
                 meta_value: m.$.status.toUpperCase()
             });
             metas.push({
                 event_id: m.$.matchid,
-                meta_key: 'game_score',
+                meta_key: "game_score",
                 meta_value: m.$.score
             });
             metas.push({
                 event_id: m.$.matchid,
-                meta_key: 'match_time',
+                meta_key: "match_time",
                 meta_value: m.$.matchtime_extended
             });
             metas.push({
                 event_id: m.$.matchid,
-                meta_key: 'remaining_time',
-                meta_value: ''
+                meta_key: "remaining_time",
+                meta_value: ""
             });
             metas.push({
                 event_id: m.$.matchid,
-                meta_key: 'remaining_time_period',
-                meta_value: ''
+                meta_key: "remaining_time_period",
+                meta_value: ""
             });
             metas.push({
                 event_id: m.$.matchid,
-                meta_key: 'score',
+                meta_key: "score",
                 meta_value: m.$.score
             });
             metas.push({
                 event_id: m.$.matchid,
-                meta_key: 'set_scores',
+                meta_key: "set_scores",
                 meta_value: m.$.setscore1
             });
             metas.push({
                 event_id: m.$.matchid,
-                meta_key: 'set_scores',
+                meta_key: "set_scores",
                 meta_value: m.$.setscore2
             });
         });

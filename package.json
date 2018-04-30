@@ -15,8 +15,10 @@
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "express-xml-bodyparser": "^0.3.0",
+    "moment": "^2.22.1",
     "mysql": "^2.15.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "promise-mysql": "^3.2.1"
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.8",
