@@ -38,6 +38,112 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
         return;
     }
 
+    protected saveLiveOddsSelections(msg: LiveMsgModel): void {
+        this.getCon()
+            .then(con => {
+                msg.oddsselections.forEach(async (os: LiveOddsSelection) => {
+                    await this.saveLiveOddsSelection(os, con);
+                });
+                con.release();
+            })
+            .catch(err => {
+                this.handleMysqlError(err);
+            });
+    }
+
+    protected async saveLiveOddsSelection(
+        os: LiveOddsSelection,
+        con: PoolConnection
+    ): Promise<void> {
+        const exist: boolean = await this.oddsSelectionExists(os, con);
+        if (exist) {
+            //update
+            await this.updateLiveOddsSelection(os, con);
+        } else {
+            //insert
+            await this.insertLiveOddsSelection(os, con);
+        }
+    }
+
+    protected async insertLiveOddsSelection(
+        os: LiveOddsSelection,
+        con: PoolConnection
+    ): Promise<void> {
+        const insert: string =
+            "insert into liveodds_odds_sel (" +
+            " event_id, " +
+            " odd_id, " +
+            " sel_id, " +
+            " sel_name, " +
+            " sel_odd," +
+            " active," +
+            " outcome," +
+            " void_factor," +
+            " player_id, " +
+            " type_id," +
+            " type_name) " +
+            " values (?,?,?,?,?,?,?,?,?,?,?)";
+        const values: any[] = [
+            os.event_id,
+            os.odd_id,
+            os.sel_id,
+            os.sel_name,
+            os.sel_odd,
+            os.active,
+            os.outcome,
+            os.void_factor,
+            os.player_id,
+            os.type_id,
+            os.type_name
+        ];
+        await con.query(insert, values);
+    }
+
+    protected async updateLiveOddsSelection(
+        os: LiveOddsSelection,
+        con: PoolConnection
+    ): Promise<void> {
+        const update: string =
+            "update liveodds_odds_sel set " +
+            " sel_name = ?," +
+            " sel_odd = ?, " +
+            " active = ?, " +
+            " outcome = ?," +
+            " void_factor = ? ," +
+            " player_id = ?, " +
+            " type_id = ?, " +
+            " type_name = ? " +
+            " where event_id = ? AND odd_id = ? AND sel_id = ?";
+        const values: any[] = [
+            os.sel_name,
+            os.sel_odd,
+            os.active,
+            os.outcome,
+            os.void_factor,
+            os.player_id,
+            os.type_id,
+            os.type_name,
+            os.event_id,
+            os.odd_id,
+            os.sel_id
+        ];
+        await con.query(update, values);
+    }
+
+    protected async oddsSelectionExists(
+        os: LiveOddsSelection,
+        con: PoolConnection
+    ): Promise<boolean> {
+        const query =
+            "select event_id, odd_id, sel_id from liveodds_odds_sel where event_id = ? AND odd_id = ? AND sel_id = ?";
+        const data = await con.query(query, [
+            os.event_id,
+            os.odd_id,
+            os.sel_id
+        ]);
+        return !!data.length;
+    }
+
     protected saveLiveOddsInfos(msg: LiveMsgModel): void {
         this.getCon()
             .then(con => {
@@ -340,10 +446,6 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
         const query = "select event_id from liveodds_events where event_id = ?";
         const data = await con.query(query, [eventId]);
         return !!data.length;
-    }
-
-    protected saveLiveOddsSelections(msg: LiveMsgModel): void {
-        return;
     }
 
     private handleMysqlError(err: MysqlError): void {
