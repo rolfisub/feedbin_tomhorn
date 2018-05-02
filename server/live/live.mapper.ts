@@ -15,9 +15,7 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
             data: msg
         };
         const liveMsgModel: LiveMsgModel = this.getCommonMsgModel(imsg);
-        console.log("msg received, saving to db...");
         await this.saveLiveMsg(liveMsgModel);
-        console.log("done.");
     }
 
     public getEvents(msg: IntegrationMsg<ThLiveOddsMsgBody>): LiveEvent[] {

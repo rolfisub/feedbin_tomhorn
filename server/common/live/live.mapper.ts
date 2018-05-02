@@ -313,7 +313,7 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
         const values: string[] = [
             m.meta_value,
             m.event_id,
-            m.meta_key ? m.meta_value : ""
+            m.meta_key ? m.meta_key : ""
         ];
         await con.query(update, values);
     }
@@ -348,15 +348,9 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
     ): Promise<void> {
         const exists = await this.eventLiveExist(e.event_id, con);
         if (exists) {
-            console.log("event_id exists " + e.event_id);
-            console.log("updating event...");
             await this.updateLiveEvent(e, con);
-            console.log("updated.");
         } else {
-            console.log("event_id does not exists " + e.event_id);
-            console.log("inserting...");
             await this.insertLiveEvent(e, con);
-            console.log("done.");
         }
     }
 
