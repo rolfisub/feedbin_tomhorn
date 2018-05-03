@@ -42,7 +42,11 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
         this.getCon()
             .then(con => {
                 msg.oddsselections.forEach(async (os: LiveOddsSelection) => {
-                    await this.saveLiveOddsSelection(os, con);
+                    try{
+                        await this.saveLiveOddsSelection(os, con);
+                    }catch (e) {
+                        this.handleMysqlError(e, os);
+                    }
                 });
                 con.release();
             })
@@ -148,7 +152,12 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
         this.getCon()
             .then(con => {
                 msg.oddsinfo.forEach(async (oi: LiveOddsInfo) => {
-                    await this.saveLiveOddsInfo(oi, con);
+                    try{
+                        await this.saveLiveOddsInfo(oi, con);
+                    } catch (e) {
+                        this.handleMysqlError(e, oi);
+                    }
+
                 });
                 con.release();
             })
@@ -260,7 +269,12 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
         this.getCon()
             .then(con => {
                 msg.metas.forEach(async (m: LiveMeta) => {
-                    await this.saveLiveMeta(m, con);
+                    try{
+                        await this.saveLiveMeta(m, con);
+                    } catch (e) {
+                        this.handleMysqlError(e, m);
+                    }
+
                 });
                 con.release();
             })
@@ -311,9 +325,9 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
             "meta_value = ? " +
             "where event_id = ? AND meta_key = ?";
         const values: string[] = [
-            m.meta_value,
+            m.meta_value ? m.meta_value : '',
             m.event_id,
-            m.meta_key ? m.meta_key : ""
+            m.meta_key
         ];
         await con.query(update, values);
     }
@@ -332,7 +346,12 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
         this.getCon()
             .then(con => {
                 msg.events.forEach(async (e: LiveEvent) => {
-                    await this.saveLiveEvent(e, con);
+                    try{
+                        await this.saveLiveEvent(e, con);
+                    } catch (er) {
+                        this.handleMysqlError(er, e);
+                    }
+
                 });
                 con.release();
             })
@@ -442,9 +461,10 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
         return !!data.length;
     }
 
-    private handleMysqlError(err: MysqlError): void {
+    private handleMysqlError(err: MysqlError, obj: any = {}): void {
         console.log(err);
-        process.exit(5);
+        console.log(obj);
+        process.exit(500);
         return;
     }
 }

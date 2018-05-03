@@ -15,6 +15,10 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
             data: msg
         };
         const liveMsgModel: LiveMsgModel = this.getCommonMsgModel(imsg);
+        console.log("events: " + liveMsgModel.events.length);
+        console.log("metas: " + liveMsgModel.metas.length);
+        console.log("oddsinfo: " + liveMsgModel.oddsinfo.length);
+        console.log("oddsselections: " + liveMsgModel.oddsselections.length);
         await this.saveLiveMsg(liveMsgModel);
     }
 
@@ -64,21 +68,23 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
             const { odds } = m;
             if (odds) {
                 odds.forEach((o: ThOdds) => {
-                    liveoddsinfo.push({
-                        event_id: m.$.matchid,
-                        odd_id: o.$.id,
-                        odd_name: o.$.type,
-                        odd_text: o.$.freetext,
-                        odd_type_id: o.$.typeid,
-                        odd_type: o.$.type,
-                        odd_subtype: o.$.subtype ? o.$.subtype : '',
-                        active: o.$.active === "1" ? "true" : "false",
-                        handicap: o.$.specialoddsvalue ? o.$.specialoddsvalue : '',
-                        handicap_rest: "",
-                        changed: o.$.changed,
-                        combinations: "",
-                        is_balanced: ""
-                    });
+                    if(m.$.matchid && o.$.id) {
+                        liveoddsinfo.push({
+                            event_id: m.$.matchid,
+                            odd_id: o.$.id,
+                            odd_name: o.$.type,
+                            odd_text: o.$.freetext,
+                            odd_type_id: o.$.typeid,
+                            odd_type: o.$.type,
+                            odd_subtype: o.$.subtype ? o.$.subtype : '',
+                            active: o.$.active === "1" ? "true" : "false",
+                            handicap: o.$.specialoddsvalue ? o.$.specialoddsvalue : '',
+                            handicap_rest: "",
+                            changed: o.$.changed ? o.$.changed : "false",
+                            combinations: "",
+                            is_balanced: ""
+                        });
+                    }
                 });
             }
         });
@@ -98,20 +104,22 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                     let selId = 0;
                     if (oddsfield) {
                         oddsfield.forEach((of: ThOddsField) => {
-                            liveoddssel.push({
-                                event_id: m.$.matchid,
-                                odd_id: o.$.id,
-                                sel_id: selId.toString(),
-                                sel_name: of.$.type,
-                                sel_odd: of._,
-                                active: of.$.active,
-                                outcome: of.$.outcome ? of.$.outcome : "0",
-                                void_factor: "-1",
-                                player_id: -1,
-                                type_id: parseInt(of.$.typeid, 10),
-                                type_name: of.$.type
-                            });
-                            selId++;
+                            if(m.$.matchid && o.$.id) {
+                                liveoddssel.push({
+                                    event_id: m.$.matchid,
+                                    odd_id: o.$.id,
+                                    sel_id: selId.toString(),
+                                    sel_name: of.$.type,
+                                    sel_odd: of._ ? of._ : '0',
+                                    active: of.$.active,
+                                    outcome: of.$.outcome ? of.$.outcome : '-1',
+                                    void_factor: "-1",
+                                    player_id: -1,
+                                    type_id: parseInt(of.$.typeid, 10),
+                                    type_name: of.$.type
+                                });
+                                selId++;
+                            }
                         });
                     }
                 });
@@ -124,31 +132,39 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
         const metas: LiveMeta[] = [];
         const match = msg.data.oddsmaker9000liveodds.match;
         match.forEach((m: ThMatchModel) => {
-            metas.push({
-                event_id: m.$.matchid,
-                meta_key: "bet_status",
-                meta_value: m.$.betstatus.toUpperCase()
-            });
+            if(m.$.betstatus) {
+                metas.push({
+                    event_id: m.$.matchid,
+                    meta_key: "bet_status",
+                    meta_value: m.$.betstatus.toUpperCase()
+                });
+            }
             metas.push({
                 event_id: m.$.matchid,
                 meta_key: "cleared_score",
                 meta_value: m.$.score
             });
-            metas.push({
-                event_id: m.$.matchid,
-                meta_key: "event_status",
-                meta_value: m.$.status.toUpperCase()
-            });
-            metas.push({
-                event_id: m.$.matchid,
-                meta_key: "game_score",
-                meta_value: m.$.score
-            });
-            metas.push({
-                event_id: m.$.matchid,
-                meta_key: "match_time",
-                meta_value: m.$.matchtime_extended
-            });
+            if(m.$.status) {
+                metas.push({
+                    event_id: m.$.matchid,
+                    meta_key: "event_status",
+                    meta_value: m.$.status.toUpperCase()
+                });
+            }
+            if(m.$.score) {
+                metas.push({
+                    event_id: m.$.matchid,
+                    meta_key: "game_score",
+                    meta_value: m.$.score
+                });
+            }
+            if(m.$.matchtime_extended) {
+                metas.push({
+                    event_id: m.$.matchid,
+                    meta_key: "match_time",
+                    meta_value: m.$.matchtime_extended
+                });
+            }
            /* metas.push({
                 event_id: m.$.matchid,
                 meta_key: "remaining_time",
@@ -159,11 +175,14 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                 meta_key: "remaining_time_period",
                 meta_value: ""
             });*/
-            metas.push({
-                event_id: m.$.matchid,
-                meta_key: "score",
-                meta_value: m.$.score
-            });
+            if(m.$.score) {
+                metas.push({
+                    event_id: m.$.matchid,
+                    meta_key: "score",
+                    meta_value: m.$.score
+                });
+            }
+
 
             if (m.$.setscore1) {
                 metas.push({
