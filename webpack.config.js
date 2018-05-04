@@ -12,7 +12,7 @@ fs.readdirSync('node_modules')
 
 module.exports = {
     entry: './server/server.ts',
-    mode: "production",
+   // mode: "development",
     output: {
         path: __dirname + '/build',
         filename: 'server.js',
@@ -30,7 +30,7 @@ module.exports = {
         ],
     },
     target: 'node',
-    externals: nodeModules,
+    //externals: nodeModules,
     plugins: [
         new UglifyWebpackJSPlugin({
             cache: true,

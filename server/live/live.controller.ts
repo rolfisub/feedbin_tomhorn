@@ -8,9 +8,10 @@ export class LiveController extends AbstractController {
         super(model);
     }
     public create(req: Request, res: Response) {
+
         this.model.saveMsg(req.body as ThLiveOddsMsgBody);
+        this.model.logMsg(req.body as ThLiveOddsMsgBody, req);
         res.json({
-            hello: "world",
             body: req.body
         });
     }
