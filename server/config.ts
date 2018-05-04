@@ -1,4 +1,4 @@
-import { ConnectionConfig } from "mysql";
+import {PoolConfig} from "mysql";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -9,7 +9,7 @@ const configFile = JSON.parse(
 interface ConfigInterface {
     version: number;
     mysql: {
-        config: ConnectionConfig;
+        config: PoolConfig;
     };
 }
 
@@ -17,7 +17,9 @@ const config: ConfigInterface = {
     version: 1,
     mysql: {
         config: {
-            ...configFile.mysql.config
+            ...configFile.mysql.config,
+            queueLimit: 5,
+            multipleStatements: true
         }
     }
 };

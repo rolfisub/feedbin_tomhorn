@@ -12,7 +12,7 @@ var index = 0;
 var intervalId = setInterval(()=> {
     var file = files[index];
     var content = fs.readFileSync(path.resolve(dir + file));
-    var result = request("POST", "http://localhost:3000/live", {
+    var result = request("POST", "http://rolfitech.com:3000/live", {
         headers: {
             "Content-Type":"application/xml"
         },
@@ -24,4 +24,4 @@ var intervalId = setInterval(()=> {
         clearInterval(intervalId);
     }
 
-}, 500);
+}, 200);

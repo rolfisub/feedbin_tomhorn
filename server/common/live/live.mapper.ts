@@ -353,6 +353,7 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
                     }
 
                 });
+
                 con.release();
             })
             .catch(err => {
@@ -461,10 +462,5 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
         return !!data.length;
     }
 
-    private handleMysqlError(err: MysqlError, obj: any = {}): void {
-        console.log(err);
-        console.log(obj);
-        process.exit(500);
-        return;
-    }
+
 }

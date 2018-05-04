@@ -33,6 +33,7 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
             ];
             console.log('log saved');
             await con.query(query, values);
+            con.release();
         });
     }
 
