@@ -24,14 +24,15 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
     }
 
     public saveMsgLog(msg: ThLiveOddsMsgBody, req: Request): void {
-        this.getCon().then(con => {
+        this.getCon().then(async con => {
             const query: string =
                 "insert into liveodds_msgs (`ip`,`msg`) values (?,?)";
             const values: string[] = [
-                req.connection.remoteAddress,
+                req.connection.remoteAddress ? req.connection.remoteAddress : '',
                 JSON.stringify(msg)
             ];
-            con.query(query, values);
+            console.log('log saved');
+            await con.query(query, values);
         });
     }
 
