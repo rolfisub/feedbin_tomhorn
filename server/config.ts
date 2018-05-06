@@ -17,9 +17,7 @@ const config: ConfigInterface = {
     version: 1,
     mysql: {
         config: {
-            ...configFile.mysql.config,
-            queueLimit: 5,
-            multipleStatements: true
+            ...configFile.mysql.config
         }
     }
 };
