@@ -7,7 +7,7 @@ import {
     LiveOddsSelection
 } from "../common/live/live.types";
 import { CommonLiveMapper, IntegrationMsg } from "../common/live/live.mapper";
-import * as moment from "moment";
+import * as moment from "moment-timezone";
 import { Request } from "express";
 
 export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
@@ -40,8 +40,19 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
     public getEvents(msg: IntegrationMsg<ThLiveOddsMsgBody>): LiveEvent[] {
         const events: LiveEvent[] = [];
         const match = msg.data.oddsmaker9000liveodds.match;
+
         match.forEach((m: ThMatchModel) => {
             if (m.matchinfo) {
+
+                /*converting to EST*/
+                const time = parseInt(m.matchinfo[0].dateofmatch[0], 10);
+                const format = "YYYY-MM-DD HH:MM:SS";
+                const utc = "Etc/UTC";
+                const myTZ = "America/New_York";
+                const dateStr = moment.unix(time).format(format).toString();
+                const momtz  = moment.tz(dateStr, utc);
+                const datetimeEST = momtz.tz(myTZ).format(format).toString();
+
                 events.push({
                     event_id: m.$.matchid,
                     event_name:
@@ -62,10 +73,7 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                         m.matchinfo[0].category[0]._ +
                         " " +
                         m.matchinfo[0].tournament[0]._,
-                    event_startdate: moment
-                        .unix(parseInt(m.matchinfo[0].dateofmatch[0], 10))
-                        .format("YYYY-MM-DD HH:MM:SS")
-                        .toString(),
+                    event_startdate: datetimeEST,
                     extra_info: "",
                     streaming: "",
                     tv_channels: ""

@@ -5,7 +5,7 @@ var config  = require("../server/config");
 
 console.log(config);
 
-var from = 1500;
+var from = 1564;
 
 var pool = mysql.createPool(config.mysql.config);
 
@@ -18,17 +18,19 @@ pool.getConnection().then((con)=> {
         console.log("done.");
         console.log("stating replay...");
         var index = 0 + from;
-        setInterval(()=>{
+        var intervalId = setInterval(()=>{
             var msg = values[index];
             console.log(index);
-            var result = request("POST", "http://localhost:3000/live", {
+            request("POST", "http://localhost:3000/live", {
                 headers: {
                     "Content-Type":"application/json"
                 },
                 body: msg.msg
             });
-            console.log(result);
             index++;
+            if(index >= values.length) {
+                clearInterval(intervalId);
+            }
         }, 10);
 
     });
