@@ -11,14 +11,20 @@ interface ConfigInterface {
     mysql: {
         config: PoolConfig;
     };
+    general: {
+        logLiveMsgToDB: boolean
+    }
 }
 
 const config: ConfigInterface = {
-    version: 1,
+    version: configFile.version,
     mysql: {
         config: {
             ...configFile.mysql.config
         }
+    },
+    general: {
+        ...configFile.general
     }
 };
 

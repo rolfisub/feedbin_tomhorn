@@ -65,3 +65,4 @@ yarn.lock
 sql/bm_sportsbook.sql
 sql/bm_sportsbook.zip
 xml_test/partials
+xml_test/liveodds_msgs.sql

@@ -6,7 +6,6 @@ import {
     LiveOddsInfo,
     LiveOddsSelection
 } from "./live.types";
-import { MysqlError } from "mysql";
 import { PoolConnection } from "promise-mysql";
 
 export interface IntegrationMsg<M> {

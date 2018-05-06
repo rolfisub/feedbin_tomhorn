@@ -1,19 +1,18 @@
 {
-  "version": 1,
-  "mysql": {
-    "config": {
-      "connectionLimit": 10,
-      "queueLimit": 100,
-      "multipleStatements": true,
-      "host": "localhost",
-      "user": "sportsbook",
-      "password": "pass1221",
-      "port": 3306,
-      "database": "sportsbook"
+    "version": 1,
+    "mysql": {
+        "config": {
+            "connectionLimit": 10,
+            "queueLimit": 100,
+            "multipleStatements": true,
+            "host": "localhost",
+            "user": "sportsbook",
+            "password": "pass1221",
+            "port": 3306,
+            "database": "sportsbook"
+        }
+    },
+    "general": {
+        "logLiveMsgToDB": false
     }
-  },
-  "general" : {
-
-    "logLiveMsgToDB": true
-  }
 }

@@ -31,7 +31,10 @@ export class AbstractMapper {
     public handleMysqlError(err: MysqlError, obj: any = {}): void {
         console.log(err);
         console.log(obj);
-        logger.error(err, obj);
+        logger.error(err, obj, this.pool);
+        logger.shutdown().then(()=>{
+            process.exit(5);
+        });
         return;
     }
 }
