@@ -100,7 +100,7 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                             odd_type_id: o.$.typeid,
                             odd_type: o.$.type,
                             odd_subtype: o.$.subtype ? o.$.subtype : "",
-                            active: o.$.active === "1" ? "true" : "false",
+                            active: o.$.active.toString() === "1" ? "true" : "false",
                             handicap: o.$.specialoddsvalue
                                 ? o.$.specialoddsvalue
                                 : "",
@@ -126,24 +126,22 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
             if (odds) {
                 odds.forEach((o: ThOdds) => {
                     const { oddsfield } = o;
-                    let selId = 0;
                     if (oddsfield) {
                         oddsfield.forEach((of: ThOddsField) => {
                             if (m.$.matchid && o.$.id) {
                                 liveoddssel.push({
                                     event_id: m.$.matchid,
                                     odd_id: o.$.id,
-                                    sel_id: selId.toString(),
+                                    sel_id: of.$.typeid,
                                     sel_name: of.$.type,
                                     sel_odd: of._ ? of._ : "0",
-                                    active: of.$.active,
+                                    active: o.$.active.toString() === "1" ? "true" : "false",
                                     outcome: of.$.outcome ? of.$.outcome : "-1",
                                     void_factor: "-1",
                                     player_id: -1,
                                     type_id: parseInt(of.$.typeid, 10),
                                     type_name: of.$.type
                                 });
-                                selId++;
                             }
                         });
                     }

@@ -21,12 +21,13 @@ pool.getConnection().then((con)=> {
         var intervalId = setInterval(()=>{
             var msg = values[index];
             console.log(index);
-            request("POST", "http://localhost:3000/live", {
+            var response = request("POST", "http://45.76.158.229:3000/live", {
                 headers: {
                     "Content-Type":"application/json"
                 },
                 body: msg.msg
             });
+            console.log(response);
             index++;
             if(index >= values.length) {
                 clearInterval(intervalId);
