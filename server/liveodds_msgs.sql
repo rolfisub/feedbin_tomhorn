@@ -41,7 +41,7 @@ CREATE TABLE `liveodds_msgs` (
 -- Indexes for table `liveodds_msgs`
 --
 ALTER TABLE `liveodds_msgs`
-  ADD PRIMARY KEY (`id`);
+                           ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables

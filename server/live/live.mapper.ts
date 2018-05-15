@@ -107,7 +107,7 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                             handicap_rest: "",
                             changed: o.$.changed ? o.$.changed : "false",
                             combinations: "",
-                            is_balanced: ""
+                            is_balanced: o.$.mostbalanced ? o.$.mostbalanced : ''
                         });
                     }
                 });
