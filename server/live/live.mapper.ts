@@ -28,10 +28,12 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
             const query: string =
                 "insert into liveodds_msgs (`ip`,`msg`) values (?,?)";
             const values: string[] = [
-                req.connection.remoteAddress ? req.connection.remoteAddress : '',
+                req.connection.remoteAddress
+                    ? req.connection.remoteAddress
+                    : "",
                 JSON.stringify(msg)
             ];
-            console.log('log saved');
+            console.log("log saved");
             await con.query(query, values);
             con.release();
         });
@@ -43,15 +45,20 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
 
         match.forEach((m: ThMatchModel) => {
             if (m.matchinfo) {
-
                 /*converting to EST*/
                 const time = parseInt(m.matchinfo[0].dateofmatch[0], 10);
                 const format = "YYYY-MM-DD HH:MM:SS";
                 const utc = "Etc/UTC";
                 const myTZ = "America/New_York";
-                const dateStr = moment.unix(time).format(format).toString();
-                const momtz  = moment.tz(dateStr, utc);
-                const datetimeEST = momtz.tz(myTZ).format(format).toString();
+                const dateStr = moment
+                    .unix(time)
+                    .format(format)
+                    .toString();
+                const momtz = moment.tz(dateStr, utc);
+                const datetimeEST = momtz
+                    .tz(myTZ)
+                    .format(format)
+                    .toString();
 
                 events.push({
                     event_id: m.$.matchid,
@@ -100,14 +107,21 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                             odd_type_id: o.$.typeid,
                             odd_type: o.$.type,
                             odd_subtype: o.$.subtype ? o.$.subtype : "",
-                            active: o.$.active.toString() === "1" ? "true" : "false",
+                            active:
+                                o.$.mostbalanced === "0"
+                                    ? "false"
+                                    : o.$.active.toString() === "1"
+                                        ? "true"
+                                        : "false",
                             handicap: o.$.specialoddsvalue
                                 ? o.$.specialoddsvalue
                                 : "",
                             handicap_rest: "",
                             changed: o.$.changed ? o.$.changed : "false",
                             combinations: "",
-                            is_balanced: o.$.mostbalanced ? o.$.mostbalanced : ''
+                            is_balanced: o.$.mostbalanced
+                                ? o.$.mostbalanced
+                                : ""
                         });
                     }
                 });
@@ -135,7 +149,15 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                                     sel_id: of.$.typeid,
                                     sel_name: of.$.type,
                                     sel_odd: of._ ? of._ : "0",
-                                    active: o.$.active.toString() === "1" ? "true" : "false",
+                                    active:
+                                        of.$.outcome === "0" ||
+                                        of.$.outcome === "1"
+                                            ? "false"
+                                            : o.$.mostbalanced === "0"
+                                                ? "false"
+                                                : o.$.active.toString() === "1"
+                                                    ? "true"
+                                                    : "false",
                                     outcome: of.$.outcome ? of.$.outcome : "-1",
                                     void_factor: "-1",
                                     player_id: -1,

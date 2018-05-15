@@ -115,8 +115,8 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
             " void_factor = ? ," +
             " player_id = ?, " +
             " type_id = ?, " +
-            " type_name = ? " +
-            " last_update = CURRENT_TIMESTAMP() " +
+            " type_name = ?, " +
+            " last_update = NULL " +
             " where event_id = ? AND odd_id = ? AND sel_id = ?";
         const values: any[] = [
             os.sel_name,
@@ -197,8 +197,8 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
             " handicap_rest = ?," +
             " changed = ?, " +
             " combinations = ?," +
-            " is_balanced = ? " +
-            " last_update = CURRENT_TIMESTAMP() " +
+            " is_balanced = ?, " +
+            " last_update = NULL " +
             " where event_id = ? AND odd_id = ?";
         const values: string[] = [
             oi.odd_name,
@@ -323,7 +323,7 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
     ): Promise<void> {
         const update: string =
             "update liveodds_meta set " +
-            "meta_value = ?, last_update = CURRENT_TIMESTAMP() " +
+            "meta_value = ?, last_update = NULL " +
             "where event_id = ? AND meta_key = ?";
         const values: string[] = [
             m.meta_value ? m.meta_value : '',
@@ -394,7 +394,7 @@ export abstract class CommonLiveMapper<M> extends AbstractMapper {
             " extra_info = ?, " +
             " streaming = ?, " +
             " tv_channels = ?, " +
-            " last_update = CURRENT_TIMESTAMP() " +
+            " last_update = NULL " +
             " where event_id = ?";
         const values: string[] = [
             e.event_name,
