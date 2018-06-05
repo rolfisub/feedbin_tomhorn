@@ -9,6 +9,7 @@ import {
 import { CommonLiveMapper, IntegrationMsg } from "../common/live/live.mapper";
 import * as moment from "moment-timezone";
 import { Request } from "express";
+import config from "../config";
 
 export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
     public async saveMsgToDb(msg: ThLiveOddsMsgBody): Promise<void> {
@@ -49,7 +50,7 @@ export class LiveMapper extends CommonLiveMapper<ThLiveOddsMsgBody> {
                 const time = parseInt(m.matchinfo[0].dateofmatch[0], 10);
                 const format = "YYYY-MM-DD HH:MM:SS";
                 const utc = "Etc/UTC";
-                const myTZ = "America/New_York";
+                const myTZ = config.general.myTimeZone;
                 const dateStr = moment
                     .unix(time)
                     .format(format)

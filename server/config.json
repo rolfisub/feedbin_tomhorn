@@ -13,6 +13,7 @@
         }
     },
     "general": {
-        "logLiveMsgToDB": false
+        "logLiveMsgToDB": false,
+        "myTimeZone": "America/New_York"
     }
 }

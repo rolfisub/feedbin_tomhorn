@@ -1,4 +1,4 @@
-import {PoolConfig} from "mysql";
+import { PoolConfig } from "mysql";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -12,8 +12,9 @@ interface ConfigInterface {
         config: PoolConfig;
     };
     general: {
-        logLiveMsgToDB: boolean
-    }
+        logLiveMsgToDB: boolean;
+        myTimeZone: string;
+    };
 }
 
 const config: ConfigInterface = {
